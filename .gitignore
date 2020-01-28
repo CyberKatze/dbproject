@@ -1,4 +1,6 @@
 .DS_Store
+database.ini
+.vscode/
 .env
 .flaskenv
 *.pyc
