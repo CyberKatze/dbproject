@@ -15,8 +15,7 @@ def connect():
         conn = psycopg2.connect(**params)
 
     except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-
+        raise error
     return conn, conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
 

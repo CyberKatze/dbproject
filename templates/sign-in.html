@@ -1,27 +1,25 @@
 {% extends 'base.html' %}
 {% from "_render_field.html" import render_field, render_radio_fields %}
 {% block title %}
-Sign Up
+Login
 {% endblock title %}
-
 {% block content %}
 <div class="container  py-5" role="main">
 
     <div class="row">
         <div class="col-lg-8">
-            <h3 class="display-4 ht-tm-component-title">Sign Up</h3>
+            <h3 class="display-4 ht-tm-component-title">Login</h3>
             <div class="ht-tm-componentsblock">
 
                 <form class="form-horizontal" , method="POST" action="{{url_for('signup')}}">
                     {{ form.csrf_token }}
                     <fieldset>
                         {{ render_field(form.username, placeholder=form.username.label.text)}}
-                        {{ render_field(form.email, placeholder=form.email.label.text) }}
                         {{ render_field(form.password, placeholder=form.password.label.text) }}
                         <div class="form-group">
                             <div class="col-lg-10 col-lg-offset-2">
                                 <button type="reset" class="btn btn-outline-secondary">Cancel</button>
-                                <button type="submit" class="btn btn-outline-primary">Submit</button>
+                                <button type="submit" class="btn btn-outline-primary">Login</button>
                             </div>
                         </div>
                     </fieldset>

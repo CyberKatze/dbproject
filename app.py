@@ -8,10 +8,13 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Thisisasecret!'
 
 
-class MyForm(FlaskForm):
+class LoginForm(FlaskForm):
     username = StringField('Username', validators=[InputRequired()])
-    email = StringField('Email', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired()])
+
+
+class SignUpForm(LoginForm):
+    email = StringField('Email', validators=[InputRequired()])
 
 
 @app.teardown_appcontext
@@ -22,15 +25,20 @@ def close_db(error):
 
 @app.route('/')
 def index():
-    conn, cur = get_db()
-    cur.execute('select * from users')
-    result = cur.fetchall()
+    result = None
+    try:
+        conn = get_db()
+        cur = conn[1]
+        cur.execute('select * from users')
+        result = cur.fetchall()
+    except:
+        pass
     return render_template('index.html', users=result)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    form = MyForm()
+    form = SignUpForm()
     if form.validate_on_submit():
         conn, cur = get_db()
         cur.execute('insert into users(username,email,password) values(%s,%s,%s)',
@@ -39,3 +47,26 @@ def signup():
         return redirect(url_for('index'))
 
     return render_template('signup.html', form=form)
+
+
+@app.route('/post')
+def post():
+    return render_template('post.html', post=None)
+
+
+@app.route('/signin', methods=['GET', 'POST'])
+def signin():
+    form = LoginForm()
+    if form.validate_on_submit():
+        pass
+    return render_template('sign-in.html', form=form)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('error.html', message="Page not Found"), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('error.html', message="Page not Found"), 500
