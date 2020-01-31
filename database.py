@@ -1,7 +1,7 @@
 from flask import g
 import psycopg2
 import psycopg2.extras
-from config import config
+from config import db_config
 
 
 def connect():
@@ -9,7 +9,7 @@ def connect():
     conn = None
     try:
         # read connection parameters
-        params = config()
+        params = db_config()
 
         # connect to the PostgreSQL server
         conn = psycopg2.connect(**params)

@@ -11,7 +11,7 @@ Login
             <h3 class="display-4 ht-tm-component-title">Login</h3>
             <div class="ht-tm-componentsblock">
 
-                <form class="form-horizontal" , method="POST" action="{{url_for('signup')}}">
+                <form class="form-horizontal" , method="POST" action="{{url_for('.signin')}}">
                     {{ form.csrf_token }}
                     <fieldset>
                         {{ render_field(form.username, placeholder=form.username.label.text)}}
