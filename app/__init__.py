@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, g, flash
 from database import get_db
 from config import config
+from flask_login import LoginManager
 
+login_manager = LoginManager()
+login_manager.login_view = 'auth.signin'
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -13,5 +16,6 @@ def create_app(config_name):
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
 
+    login_manager.init_app(app)
     return app    
 
