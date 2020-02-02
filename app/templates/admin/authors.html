@@ -29,13 +29,11 @@ ADMIN
             <h3 class="display-5 ht-tm-component-title">Authors List</h3>
                    <ul class="list-group">
                 {% for author in authors %}
-                <form action="{{url_for('admin.author_del',id=author.id)}}">
 
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     {{author.username}}
-                    <button type="submit" class="badge badge-danger badge-pill">delete</button>
+                    <a href="{{url_for('admin.author_del',id=author.id)}}" class="badge badge-danger badge-pill">delete</a>
                 </li>
-                </form>
                 {% endfor %}
                 
                 </ul>

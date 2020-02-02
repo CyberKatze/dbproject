@@ -44,3 +44,9 @@ def signin():
         else:
             flash('your password or user is incorrect')
     return render_template('auth/sign-in.html', form=form)
+
+
+@auth.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    return redirect(url_for('main.index'))
