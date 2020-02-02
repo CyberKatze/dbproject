@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+<div class="container">
+    <div class="row" id="row_style">
+        <h4 class="text-center">Submit new post</h4>
+        <div class="col-md-12   ">
+            <form method="POST" action="{{url_for('author.add_article') }}">
+
+            <div class="form-group">
+                <input name='title' type="text" class="form-control" placeholder="Title" required="">
+            </div>
+            <textarea name='article' required="" id="editor" cols="30" rows="10">Submit your text post here...</textarea>
+            <br>
+            <div class="form-group">
+                <input name='tags' type="text" class="form-control" placeholder="Tags">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" id="submit">Submit new post</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    #row_style {
+        margin-top: 30px;
+    }
+
+    #submit {
+        display: block;
+        margin: auto;
+    }
+</style>
+
+<!-- you need to include the shieldui css and js assets in order for the charts to work -->
+<link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light/all.min.css" />
+<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+
+<script>
+    $(function () {
+        $("#editor").shieldEditor({
+            height: 260
+        });
+    })
+</script>
+
+
+{% endblock content %}
