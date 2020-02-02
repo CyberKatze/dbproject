@@ -1,4 +1,4 @@
-from flask import render_template, g, flash, url_for, redirect
+from flask import render_template, g, flash, url_for, redirect, session
 from . import auth
 from .form import SignUpForm, LoginForm
 from .. import get_db
@@ -38,6 +38,9 @@ def signin():
         cur = get_db()
         cur.execute('select id, username, pass from v_users where username=%s', (form.username.data,))
         user = cur.fetchone()
-        if check_password_hash(user['pass'],form.password.data):
-            return " Hello {} your have logined".format(user['username'])
+        if user and check_password_hash(user['pass'],form.password.data):
+            session['user_id'] = user['id']
+            return redirect(url_for('main.index'))
+        else:
+            flash('your password or user is incorrect')
     return render_template('auth/sign-in.html', form=form)

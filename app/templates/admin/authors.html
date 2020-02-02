@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% from "_render_field.html" import render_field, render_radio_fields %}
+{% block title %}
+ADMIN
+{% endblock title %}
+{% block content %}
+<div class="container  py-5" role="main">
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="ht-tm-componentsblock">
+
+                <form class="form-horizontal" , method="POST" action="{{url_for('admin.authors')}}">
+                    {{ form.csrf_token }}
+                    <fieldset>
+                        {{ render_field(form.author_usr, placeholder=form.author_usr.label.text)}}
+                        
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-2">
+                                <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                                <button type="submit" class="btn btn-outline-primary">Submit</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+
+            </div>
+            <h3 class="display-3 ht-tm-component-title"></h3>
+            <h3 class="display-5 ht-tm-component-title">Authors List</h3>
+                   <ul class="list-group">
+                {% for author in authors %}
+                <form action="{{url_for('admin.author_del',id=author.id)}}">
+
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{author.username}}
+                    <button type="submit" class="badge badge-danger badge-pill">delete</button>
+                </li>
+                </form>
+                {% endfor %}
+                
+                </ul>
+        </div>
+    </div>
+</div> <!-- /container -->
+{% endblock content %}

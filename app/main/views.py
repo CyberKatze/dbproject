@@ -1,17 +1,15 @@
-from flask import render_template
+from flask import render_template, g 
 from . import main
+from .. import get_db
+from ..model import get_current_user
+
+
 
 @main.route('/')
 def index():
-    result = None
-    try:
-        conn = get_db()
-        cur = conn[1]
-        cur.execute('select * from users')
-        result = cur.fetchall()
-    except:
-        pass
-    return render_template('index.html', users=result)
+    curr_user = get_current_user()
+    
+    return render_template('index.html', user=curr_user)
 
 
 

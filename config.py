@@ -25,7 +25,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
+    SECRET_KEY = os.environ.get('SECRET_KEY') or os.urandom(24)
     DATABASE_URL = os.environ.get('DATABASE_URL')
     # MAIL_SERVER = os.environ.get('MAIL_SERVER', 'smtp.googlemail.com')
     # MAIL_PORT = int(os.environ.get('MAIL_PORT', '587'))
