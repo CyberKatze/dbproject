@@ -1,7 +1,7 @@
 import unittest
 from flask import current_app
 from app import create_app
-from database import connect, get_db
+from database import connect_db, get_db
 
 
 class BasicTestCase(unittest.TestCase):

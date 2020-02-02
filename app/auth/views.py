@@ -8,12 +8,10 @@ def signup():
     form = SignUpForm()
     if form.validate_on_submit():
         try:
-            db = get_db()
-            conn = db[0]
-            cur = db[1]
+            cur = get_db()
             cur.execute('insert into users(username,email,password) values(%s,%s,%s)',
                         (form.username.data, form.email.data, form.password.data))
-            conn.commit()
+            g.postgres_db_conn.commit()
             return redirect(url_for('index'))
         except:
             flash("Couldn't conncect to database")
