@@ -36,6 +36,11 @@
             <a class="nav-link " href="{{url_for('admin.authors')}}" tabindex="-1" aria-disabled="true">Authors</a>
           </li>
           {% endif %}
+          {% if user['author'] %}
+          <li class="nav-item{% if request.endpoint and url_for(request.endpoint)==url_for('author.add_article') %} active {% endif %}">
+            <a class="nav-link " href="{{url_for('author.add_article')}}" tabindex="-1" aria-disabled="true">Add Article</a>
+          </li>
+          {% endif %}
           <li class="nav-item ">
             <a class="nav-link " href="{{url_for('auth.logout')}}" tabindex="-1" aria-disabled="true">Logout</a>
           </li>

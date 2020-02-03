@@ -2,10 +2,13 @@ from flask import render_template, g, flash, url_for, redirect, session
 from . import admin
 from .. import get_db
 from .form import AdminForm
-
+from ..model import get_current_user
 
 @admin.route('/authors', methods=['GET','POST'])
 def authors():
+    user = get_current_user()
+    if user is None or user['admin']=='':
+        return render_template('error.html',message='You are not authorized',user = user)
     form = AdminForm()
     cur = get_db()
     if form.validate_on_submit():
@@ -20,7 +23,7 @@ def authors():
             flash("user doesn't exist")
     cur.execute('select author.id,username from _user join author on _user.id=author.id')
     authors_result = cur.fetchall()
-    return render_template('admin/authors.html', authors=authors_result, form=form)
+    return render_template('admin/authors.html', authors=authors_result, form=form,user=user)
 
 @admin.route('/author_del/<int:id>')
 def author_del(id):
