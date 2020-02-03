@@ -23,7 +23,8 @@ def signup():
             g.postgres_db_conn.commit()
             cur.execute('select fname,id from ruser where id=%s', (r[0],))
             result= cur.fetchone()
-            return "name: {}, id:{}".format(result['fname'], result['id'])
+            session['user_id'] = r[0]
+            return redirect(url_for('main.index'))
         else:
             flash("User already is registered")
     

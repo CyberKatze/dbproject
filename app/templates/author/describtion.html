@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+Describtion
+{% endblock title %}
+{% block content %}
+<div class="container  py-5" role="main">
+
+    <div class="row">
+        <div class="col-lg-10">
+            <h3 class="display-5 ht-tm-component-title">Add your Describtion Here</h3>
+            <div class="ht-tm-componentsblock">
+
+                <form class="form-horizontal" , method="POST" action="{{url_for('author.article_desc',pid=pid)}}">
+                    <fieldset>
+                            
+                        <textarea  class ="col-md-12" name="desc">{{desc[0] |default('')}}</textarea>
+                        
+                                <button type="submit" class="btn btn-outline-primary">Submit</button>
+                            
+                        
+                    </fieldset>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div> <!-- /container -->
+
+{% endblock content %}
